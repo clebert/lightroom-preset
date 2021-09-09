@@ -68,5 +68,5 @@ writeFileSync('./example.xmp', generatePreset('Example', settings));
 
 ---
 
-Copyright (c) 2021, Clemens Akens. Released under the terms of the
-[MIT License](https://github.com/clebert/lightroom-preset/blob/master/LICENSE).
+Copyright 2021 Clemens Akens. All rights reserved.
+[MIT license](https://github.com/clebert/lightroom-preset/blob/master/LICENSE.md).
