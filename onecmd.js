@@ -1,29 +1,32 @@
 // @ts-check
 
-const plugins = require('@onecmd/standard-plugins');
+const std = require('@onecmd/standard-plugins');
 const nodeVersion = '16';
 
-/** @type {import('onecmd').Plugin[]} */
-module.exports = [
-  plugins.babel(),
-  plugins.editorconfig(),
-  plugins.eslint(),
-  plugins.git(),
-  plugins.github({nodeVersion}),
-  plugins.jest({coverage: true}),
-  plugins.node(nodeVersion),
-  plugins.npm(),
-  plugins.prettier(),
-  plugins.typescript('node', 'package'),
-  plugins.vscode({showFilesInEditor: false}),
+/** @type {readonly import('onecmd').Plugin[]} */
+const plugins = [
+  std.babel(),
+  std.editorconfig(),
+  std.eslint(),
+  std.git(),
+  std.github({nodeVersion}),
+  std.jest({coverage: true}),
+  std.node(nodeVersion),
+  std.npm(),
+  std.prettier(),
+  std.typescript('node', 'package'),
+  std.vscode({showFilesInEditor: false}),
 
   {
     dependencies: [
       {
-        type: 'object',
+        type: 'managed',
         path: '.prettierrc.json',
-        generate: (content) => ({...content, printWidth: 120}),
+        is: std.isObject,
+        update: (content) => ({...content, printWidth: 120}),
       },
     ],
   },
 ];
+
+module.exports = plugins;

@@ -3,7 +3,7 @@
     <rdf:Description
       xmlns:crs="http://ns.adobe.com/camera-raw-settings/1.0/"
       crs:PresetType="Normal"
-      crs:UUID="50FAA46CBFF64F5F89A39F8081D5CE12"
+      crs:UUID="C4D2987DA61647B3970089E8FE136A32"
       crs:Version="13.3"
       crs:ProcessVersion="11.0"
       crs:AutoTone="True"
@@ -83,7 +83,7 @@
         <rdf:Description
           crs:Name="Adobe Color"
           crs:Amount="1"
-          crs:UUID="E043959CA3C44A21B92227B4CD70CD1C"
+          crs:UUID="E75C3111BC644E718499D38C75B532EB"
           crs:SupportsAmount="false"
           crs:SupportsMonochrome="false"
           crs:SupportsOutputReferred="false"
