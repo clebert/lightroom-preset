@@ -18,9 +18,9 @@ const plugins = [
   std.vscode({showFilesInEditor: false}),
 
   {
-    dependencies: [
+    setup: () => [
       {
-        type: 'managed',
+        type: 'mod',
         path: '.prettierrc.json',
         is: std.isObject,
         update: (content) => ({...content, printWidth: 120}),
