@@ -1,4 +1,4 @@
-# Lightroom Preset
+# lightroom-preset
 
 [![][ci-badge]][ci-link] [![][version-badge]][version-link] [![][license-badge]][license-link]
 [![][types-badge]][types-link] [![][size-badge]][size-link]
@@ -8,7 +8,7 @@
 [version-badge]: https://badgen.net/npm/v/lightroom-preset
 [version-link]: https://www.npmjs.com/package/lightroom-preset
 [license-badge]: https://badgen.net/npm/license/lightroom-preset
-[license-link]: https://github.com/clebert/lightroom-preset/blob/master/LICENSE
+[license-link]: https://github.com/clebert/lightroom-preset/blob/master/LICENSE.md
 [types-badge]: https://badgen.net/npm/types/lightroom-preset
 [types-link]: https://github.com/clebert/lightroom-preset
 [size-badge]: https://badgen.net/bundlephobia/minzip/lightroom-preset
