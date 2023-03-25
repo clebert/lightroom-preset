@@ -1,7 +1,5 @@
-// @ts-check
-
-const {writeFileSync} = require('fs');
-const {
+import {writeFile} from 'node:fs/promises';
+import {
   autoColor,
   autoLight,
   defaultColor,
@@ -11,12 +9,12 @@ const {
   defaultOptics,
   generatePreset,
   mediumContrastToneCurve,
-} = require('./lib/cjs');
+} from './lib/index.js';
 
-/** @type {import('./lib/cjs').CameraRawSettings} */
+/** @type {import('./lib/index.js').CameraRawSettings} */
 const settings = {
   autoTone: true,
-  profile: 'Adobe Color',
+  profile: `Adobe Color`,
   light: {
     ...defaultLight,
     ...autoLight,
@@ -35,4 +33,4 @@ const settings = {
   optics: {...defaultOptics, removeChromaticAberration: true, enableLensCorrections: true},
 };
 
-writeFileSync('./example.xmp', generatePreset('Example', settings));
+await writeFile(`./example.xmp`, generatePreset(`Example`, settings));

@@ -1,4 +1,4 @@
-import type {LinearToneCurve, LinearToneCurvePoints} from '../schema';
+import type {LinearToneCurve, LinearToneCurvePoints} from '../schema.js';
 
 const linearPoints: LinearToneCurvePoints = [
   [0, 0],
@@ -6,7 +6,7 @@ const linearPoints: LinearToneCurvePoints = [
 ];
 
 export const linearToneCurve: LinearToneCurve = {
-  name: 'Linear',
+  name: `Linear`,
   points: linearPoints,
   pointsRed: linearPoints,
   pointsGreen: linearPoints,

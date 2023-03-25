@@ -1,27 +1,23 @@
-// @ts-check
+import {readFile, writeFile} from 'node:fs/promises';
+import {compile} from 'json-schema-to-typescript';
 
-const {readFileSync} = require('fs');
-const {writeFile} = require('fs/promises');
-const {join} = require('path');
-const {compile} = require('json-schema-to-typescript');
-const typesDelimitation = '// Auto-generated types';
+const typesDelimitation = `// Auto-generated types`;
+const schemaData = (await readFile(`./src/schema.ts`, {encoding: `utf-8`})).split(typesDelimitation)[0];
 
-const schemaData = readFileSync(join(__dirname, 'src/schema.ts'), {
-  encoding: 'utf-8',
-}).split(typesDelimitation)[0];
+if (!schemaData) {
+  throw new Error(`Invalid schema data.`);
+}
 
-const schema = eval(schemaData.replace('export const schema = {', '({').replace('};\n', '})'));
+const schema = eval(schemaData.replace(`export const schema = {`, `({`).replace(`};\n`, `})`));
 
-compile(schema, 'CameraRawSettings', {
-  bannerComment: '',
+const typesData = await compile(schema, `CameraRawSettings`, {
+  bannerComment: ``,
   style: {
     bracketSpacing: false,
     printWidth: 120,
-    quoteProps: 'consistent',
+    quoteProps: `consistent`,
     singleQuote: true,
   },
-})
-  .then(async (typesData) =>
-    writeFile(join(__dirname, 'src/schema.ts'), schemaData + typesDelimitation + '\n\n' + typesData)
-  )
-  .catch(console.error.bind(console));
+});
+
+await writeFile(`./src/schema.ts`, schemaData + typesDelimitation + `\n\n` + typesData);
