@@ -1,4 +1,4 @@
-import type {Effects} from '../schema';
+import type {Effects} from '../schema.js';
 
 export const defaultEffects: Required<Effects> = {
   texture: 0,

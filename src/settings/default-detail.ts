@@ -1,4 +1,4 @@
-import type {Detail} from '../schema';
+import type {Detail} from '../schema.js';
 
 export const defaultDetail: Required<Detail> = {
   sharpening: {amount: 40, radius: 1, detail: 25, masking: 0},

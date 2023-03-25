@@ -1,4 +1,4 @@
-import type {Light} from '../schema';
+import type {Light} from '../schema.js';
 
 export const autoLight: Light = {
   exposure: undefined,

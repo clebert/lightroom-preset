@@ -1,11 +1,13 @@
-import Ajv from 'ajv';
+import _Ajv from 'ajv';
 import {format} from 'prettier';
 import {v4 as uuid} from 'uuid';
-import {CameraRawSettings, schema} from './schema';
+import type {CameraRawSettings} from './schema.js';
+import {schema} from './schema.js';
 
+const Ajv = _Ajv as unknown as typeof _Ajv.default;
 const validate = new Ajv().compile(schema);
 
-export const generatePreset = (presetName: string, cameraRawSettings: CameraRawSettings) => {
+export function generatePreset(presetName: string, cameraRawSettings: CameraRawSettings): string {
   const valid = validate(cameraRawSettings);
 
   if (!valid) {
@@ -14,23 +16,24 @@ export const generatePreset = (presetName: string, cameraRawSettings: CameraRawS
 
   return format(
     [
-      '<x:xmpmeta xmlns:x="adobe:ns:meta/">',
-      '<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">',
+      `<x:xmpmeta xmlns:x="adobe:ns:meta/">`,
+      `<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">`,
       `<rdf:Description ${generateMainAttributes(cameraRawSettings)}>`,
       ...generatePresetNameNode(presetName),
       ...generateProfileNode(cameraRawSettings),
       ...generateToneCurve(cameraRawSettings),
-      ...generateToneCurve(cameraRawSettings, 'Red'),
-      ...generateToneCurve(cameraRawSettings, 'Green'),
-      ...generateToneCurve(cameraRawSettings, 'Blue'),
-      '</rdf:Description>',
-      '</rdf:RDF>',
-      '</x:xmpmeta>',
-    ].join('\n'),
-    {parser: 'xml', xmlWhitespaceSensitivity: 'ignore'} as any
+      ...generateToneCurve(cameraRawSettings, `Red`),
+      ...generateToneCurve(cameraRawSettings, `Green`),
+      ...generateToneCurve(cameraRawSettings, `Blue`),
+      `</rdf:Description>`,
+      `</rdf:RDF>`,
+      `</x:xmpmeta>`,
+    ].join(`\n`),
+    {parser: `xml`, xmlWhitespaceSensitivity: `ignore`} as any,
   );
-};
+}
 
+// eslint-disable-next-line complexity
 const generateMainAttributes = ({
   autoTone,
   profile,
@@ -42,16 +45,16 @@ const generateMainAttributes = ({
   geometry,
 }: CameraRawSettings) =>
   [
-    'xmlns:crs="http://ns.adobe.com/camera-raw-settings/1.0/"',
-    'crs:PresetType="Normal"',
+    `xmlns:crs="http://ns.adobe.com/camera-raw-settings/1.0/"`,
+    `crs:PresetType="Normal"`,
     `crs:UUID="${generateUuid()}"`,
-    'crs:Version="13.3"',
-    'crs:ProcessVersion="11.0"',
+    `crs:Version="13.3"`,
+    `crs:ProcessVersion="11.0"`,
 
-    ...(autoTone ? ['crs:AutoTone="True"'] : []),
+    ...(autoTone ? [`crs:AutoTone="True"`] : []),
 
-    ...(profile && !profile.startsWith('Adobe')
-      ? [`crs:CameraProfile="${profile}"`, 'crs:ConvertToGrayscale="False"']
+    ...(profile && !profile.startsWith(`Adobe`)
+      ? [`crs:CameraProfile="${profile}"`, `crs:ConvertToGrayscale="False"`]
       : []),
 
     ...(light?.exposure !== undefined ? [`crs:Exposure2012="${light.exposure.toFixed(2)}"`] : []),
@@ -75,9 +78,9 @@ const generateMainAttributes = ({
       : []),
 
     ...(color?.whiteBalance
-      ? color.whiteBalance.name === 'Custom'
+      ? color.whiteBalance.name === `Custom`
         ? [
-            'crs:WhiteBalance="Custom"',
+            `crs:WhiteBalance="Custom"`,
             `crs:Temperature="${color.whiteBalance.temperature.toFixed(0)}"`,
             `crs:Tint="${color.whiteBalance.tint.toFixed(0)}"`,
           ]
@@ -141,7 +144,7 @@ const generateMainAttributes = ({
 
     ...(effects?.vignette
       ? [
-          `crs:OverrideLookVignette="${effects.vignette.amount === 0 ? 'False' : 'True'}"`,
+          `crs:OverrideLookVignette="${effects.vignette.amount === 0 ? `False` : `True`}"`,
           `crs:PostCropVignetteAmount="${effects.vignette.amount.toFixed(0)}"`,
 
           ...(effects.vignette.amount !== 0
@@ -149,7 +152,7 @@ const generateMainAttributes = ({
                 `crs:PostCropVignetteMidpoint="${effects.vignette.midpoint.toFixed(0)}"`,
                 `crs:PostCropVignetteRoundness="${effects.vignette.roundness.toFixed(0)}"`,
                 `crs:PostCropVignetteFeather="${effects.vignette.feather.toFixed(0)}"`,
-                'crs:PostCropVignetteStyle="1"',
+                `crs:PostCropVignetteStyle="1"`,
               ]
             : []),
 
@@ -219,7 +222,7 @@ const generateMainAttributes = ({
     ...(optics?.enableLensCorrections !== undefined
       ? [
           `crs:LensProfileEnable="${optics.enableLensCorrections ? 1 : 0}"`,
-          ...(optics.enableLensCorrections ? ['crs:LensProfileSetup="LensDefaults"'] : []),
+          ...(optics.enableLensCorrections ? [`crs:LensProfileSetup="LensDefaults"`] : []),
         ]
       : []),
 
@@ -248,13 +251,13 @@ const generateMainAttributes = ({
     ...(geometry?.upright !== undefined
       ? [
           `crs:PerspectiveUpright="${
-            geometry.upright === 'Auto'
+            geometry.upright === `Auto`
               ? 1
-              : geometry.upright === 'Full'
+              : geometry.upright === `Full`
               ? 2
-              : geometry.upright === 'Level'
+              : geometry.upright === `Level`
               ? 3
-              : geometry.upright === 'Vertical'
+              : geometry.upright === `Vertical`
               ? 4
               : 0
           }"`,
@@ -273,46 +276,46 @@ const generateMainAttributes = ({
           `crs:PerspectiveY="${geometry.manualTransforms.yOffset.toFixed(1)}"`,
         ]
       : []),
-  ].join(' ');
+  ].join(` `);
 
-const generateUuid = () => uuid().replace(/-/g, '').toUpperCase();
+const generateUuid = () => uuid().replace(/-/g, ``).toUpperCase();
 
 const generatePresetNameNode = (presetName: string) => [
-  '<crs:Name>',
-  '<rdf:Alt>',
+  `<crs:Name>`,
+  `<rdf:Alt>`,
   `<rdf:li xml:lang="x-default">${presetName}</rdf:li>`,
-  '</rdf:Alt>',
-  '</crs:Name>',
+  `</rdf:Alt>`,
+  `</crs:Name>`,
 ];
 
 const generateProfileNode = ({profile}: CameraRawSettings) =>
-  profile?.startsWith('Adobe')
+  profile?.startsWith(`Adobe`)
     ? [
-        '<crs:Look>',
+        `<crs:Look>`,
         [
-          '<rdf:Description',
+          `<rdf:Description`,
           `crs:Name="${profile}"`,
-          'crs:Amount="1"',
+          `crs:Amount="1"`,
           `crs:UUID="${generateUuid()}"`,
-          'crs:SupportsAmount="false"',
-          'crs:SupportsMonochrome="false"',
-          'crs:SupportsOutputReferred="false"',
-          'crs:Stubbed="true"',
-          '/>',
-        ].join(' '),
-        '</crs:Look>',
+          `crs:SupportsAmount="false"`,
+          `crs:SupportsMonochrome="false"`,
+          `crs:SupportsOutputReferred="false"`,
+          `crs:Stubbed="true"`,
+          `/>`,
+        ].join(` `),
+        `</crs:Look>`,
       ]
     : [];
 
-const generateToneCurve = ({light}: CameraRawSettings, prefix: '' | 'Red' | 'Green' | 'Blue' = '') => {
+const generateToneCurve = ({light}: CameraRawSettings, prefix: '' | 'Red' | 'Green' | 'Blue' = ``) => {
   const points = light?.toneCurve?.[`points${prefix}` as const];
 
   return points
     ? [
         `<crs:ToneCurvePV2012${prefix}>`,
-        '<rdf:Seq>',
+        `<rdf:Seq>`,
         ...points.map(([x, y]) => `<rdf:li>${x.toFixed(0)}, ${y.toFixed(0)}</rdf:li>`),
-        '</rdf:Seq>',
+        `</rdf:Seq>`,
         `</crs:ToneCurvePV2012${prefix}>`,
       ]
     : [];

@@ -1,5 +1,5 @@
-import type {Light} from '../schema';
-import {linearToneCurve} from './linear-tone-curve';
+import type {Light} from '../schema.js';
+import {linearToneCurve} from './linear-tone-curve.js';
 
 export const defaultLight: Required<Light> = {
   exposure: 0,
