@@ -1,6 +1,6 @@
 {
   "name": "lightroom-preset",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "A TypeScript API for generating presets for Adobe Lightroom.",
   "repository": {
     "type": "git",
