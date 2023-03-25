@@ -1,7 +1,7 @@
-import type {Color} from '../schema';
+import type {Color} from '../schema.js';
 
 export const defaultColor: Required<Color> = {
-  whiteBalance: {name: 'As Shot'},
+  whiteBalance: {name: `As Shot`},
   vibrance: 0,
   saturation: 0,
   colorMix: {

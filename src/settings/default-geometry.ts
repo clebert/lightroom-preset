@@ -1,7 +1,7 @@
-import type {Geometry} from '../schema';
+import type {Geometry} from '../schema.js';
 
 export const defaultGeometry: Required<Geometry> = {
-  upright: 'Off',
+  upright: `Off`,
   manualTransforms: {
     distortion: 0,
     vertical: 0,

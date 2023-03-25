@@ -1,4 +1,4 @@
-import type {Optics} from '../schema';
+import type {Optics} from '../schema.js';
 
 export const defaultOptics: Required<Optics> = {
   removeChromaticAberration: false,
