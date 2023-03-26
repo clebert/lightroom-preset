@@ -1,4 +1,3 @@
-import {writeFile} from 'node:fs/promises';
 import {
   autoColor,
   autoLight,
@@ -10,6 +9,7 @@ import {
   generatePreset,
   mediumContrastToneCurve,
 } from './lib/index.js';
+import {writeFile} from 'node:fs/promises';
 
 /** @type {import('./lib/index.js').CameraRawSettings} */
 const settings = {

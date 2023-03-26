@@ -1,5 +1,5 @@
-import {readFile, writeFile} from 'node:fs/promises';
 import {compile} from 'json-schema-to-typescript';
+import {readFile, writeFile} from 'node:fs/promises';
 
 const typesDelimitation = `// Auto-generated types`;
 const schemaData = (await readFile(`./src/schema.ts`, {encoding: `utf-8`})).split(typesDelimitation)[0];

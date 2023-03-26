@@ -1,4 +1,3 @@
-import {describe, expect, jest, test} from '@jest/globals';
 import {autoColor} from './settings/auto-color.js';
 import {autoLight} from './settings/auto-light.js';
 import {defaultColor} from './settings/default-color.js';
@@ -9,6 +8,7 @@ import {defaultLight} from './settings/default-light.js';
 import {defaultOptics} from './settings/default-optics.js';
 import {mediumContrastToneCurve} from './settings/medium-contrast-tone-curve.js';
 import {strongContrastToneCurve} from './settings/strong-contrast-tone-curve.js';
+import {describe, expect, jest, test} from '@jest/globals';
 
 describe(`generatePreset()`, () => {
   test(`valid settings`, async () => {

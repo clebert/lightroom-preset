@@ -1,8 +1,9 @@
+import type {CameraRawSettings} from './schema.js';
+
+import {schema} from './schema.js';
 import _Ajv from 'ajv';
 import {format} from 'prettier';
 import {v4 as uuid} from 'uuid';
-import type {CameraRawSettings} from './schema.js';
-import {schema} from './schema.js';
 
 const Ajv = _Ajv as unknown as typeof _Ajv.default;
 const validate = new Ajv().compile(schema);

@@ -11,7 +11,6 @@ npm install lightroom-preset
 ## Usage example
 
 ```js
-import {writeFile} from 'node:fs/promises';
 import {
   autoColor,
   autoLight,
@@ -23,6 +22,7 @@ import {
   generatePreset,
   mediumContrastToneCurve,
 } from 'lightroom-preset';
+import {writeFile} from 'node:fs/promises';
 ```
 
 ```js
