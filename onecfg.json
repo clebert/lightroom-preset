@@ -15,8 +15,6 @@
     "https://raw.githubusercontent.com/clebert/onecfg-lib/main/lib/onecfg-vscode.json"
   ],
   "patches": {
-    ".prettierrc.json": [{"value": {"printWidth": 120}}],
-    ".vscode/settings.json": [{"value": {"editor.rulers": [120]}}],
     "tsconfig.json": [{"value": {"compilerOptions": {"skipLibCheck": true}}}]
   }
 }

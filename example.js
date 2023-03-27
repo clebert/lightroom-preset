@@ -30,7 +30,11 @@ const settings = {
   },
   effects: {...defaultEffects, texture: 30, clarity: 20},
   detail: {...defaultDetail},
-  optics: {...defaultOptics, removeChromaticAberration: true, enableLensCorrections: true},
+  optics: {
+    ...defaultOptics,
+    removeChromaticAberration: true,
+    enableLensCorrections: true,
+  },
 };
 
 await writeFile(`./example.xmp`, generatePreset(`Example`, settings));

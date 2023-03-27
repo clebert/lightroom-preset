@@ -12,7 +12,9 @@ import {describe, expect, jest, test} from '@jest/globals';
 
 describe(`generatePreset()`, () => {
   test(`valid settings`, async () => {
-    jest.mock(`uuid`, () => ({v4: () => `abcdefgh-ijkl-mnop-qrst-uvwxyz123456`}));
+    jest.mock(`uuid`, () => ({
+      v4: () => `abcdefgh-ijkl-mnop-qrst-uvwxyz123456`,
+    }));
 
     await import(`uuid`);
 
@@ -24,12 +26,25 @@ describe(`generatePreset()`, () => {
     expect(generatePreset(`Test`, {profile: `Custom`})).toMatchSnapshot();
     expect(generatePreset(`Test`, {light: {}})).toMatchSnapshot();
     expect(generatePreset(`Test`, {light: defaultLight})).toMatchSnapshot();
-    expect(generatePreset(`Test`, {light: {...defaultLight, ...autoLight}})).toMatchSnapshot();
-    expect(generatePreset(`Test`, {light: {toneCurve: mediumContrastToneCurve}})).toMatchSnapshot();
-    expect(generatePreset(`Test`, {light: {toneCurve: strongContrastToneCurve}})).toMatchSnapshot();
+
+    expect(
+      generatePreset(`Test`, {light: {...defaultLight, ...autoLight}}),
+    ).toMatchSnapshot();
+
+    expect(
+      generatePreset(`Test`, {light: {toneCurve: mediumContrastToneCurve}}),
+    ).toMatchSnapshot();
+
+    expect(
+      generatePreset(`Test`, {light: {toneCurve: strongContrastToneCurve}}),
+    ).toMatchSnapshot();
+
     expect(generatePreset(`Test`, {color: {}})).toMatchSnapshot();
     expect(generatePreset(`Test`, {color: defaultColor})).toMatchSnapshot();
-    expect(generatePreset(`Test`, {color: {...defaultColor, ...autoColor}})).toMatchSnapshot();
+
+    expect(
+      generatePreset(`Test`, {color: {...defaultColor, ...autoColor}}),
+    ).toMatchSnapshot();
 
     expect(
       generatePreset(`Test`, {
@@ -39,9 +54,25 @@ describe(`generatePreset()`, () => {
 
     expect(generatePreset(`Test`, {effects: {}})).toMatchSnapshot();
     expect(generatePreset(`Test`, {effects: defaultEffects})).toMatchSnapshot();
-    expect(generatePreset(`Test`, {effects: {vignette: {...defaultEffects.vignette, amount: -100}}})).toMatchSnapshot();
-    expect(generatePreset(`Test`, {effects: {vignette: {...defaultEffects.vignette, amount: 100}}})).toMatchSnapshot();
-    expect(generatePreset(`Test`, {effects: {grain: {...defaultEffects.grain, amount: 100}}})).toMatchSnapshot();
+
+    expect(
+      generatePreset(`Test`, {
+        effects: {vignette: {...defaultEffects.vignette, amount: -100}},
+      }),
+    ).toMatchSnapshot();
+
+    expect(
+      generatePreset(`Test`, {
+        effects: {vignette: {...defaultEffects.vignette, amount: 100}},
+      }),
+    ).toMatchSnapshot();
+
+    expect(
+      generatePreset(`Test`, {
+        effects: {grain: {...defaultEffects.grain, amount: 100}},
+      }),
+    ).toMatchSnapshot();
+
     expect(generatePreset(`Test`, {detail: {}})).toMatchSnapshot();
     expect(generatePreset(`Test`, {detail: defaultDetail})).toMatchSnapshot();
 
@@ -50,7 +81,10 @@ describe(`generatePreset()`, () => {
         detail: {
           sharpening: {...defaultDetail.sharpening, amount: 0},
           noiseReduction: {...defaultDetail.noiseReduction, amount: 100},
-          colorNoiseReduction: {...defaultDetail.colorNoiseReduction, amount: 0},
+          colorNoiseReduction: {
+            ...defaultDetail.colorNoiseReduction,
+            amount: 0,
+          },
         },
       }),
     ).toMatchSnapshot();
@@ -72,11 +106,26 @@ describe(`generatePreset()`, () => {
     ).toMatchSnapshot();
 
     expect(generatePreset(`Test`, {geometry: {}})).toMatchSnapshot();
-    expect(generatePreset(`Test`, {geometry: defaultGeometry})).toMatchSnapshot();
-    expect(generatePreset(`Test`, {geometry: {upright: `Auto`}})).toMatchSnapshot();
-    expect(generatePreset(`Test`, {geometry: {upright: `Full`}})).toMatchSnapshot();
-    expect(generatePreset(`Test`, {geometry: {upright: `Level`}})).toMatchSnapshot();
-    expect(generatePreset(`Test`, {geometry: {upright: `Vertical`}})).toMatchSnapshot();
+
+    expect(
+      generatePreset(`Test`, {geometry: defaultGeometry}),
+    ).toMatchSnapshot();
+
+    expect(
+      generatePreset(`Test`, {geometry: {upright: `Auto`}}),
+    ).toMatchSnapshot();
+
+    expect(
+      generatePreset(`Test`, {geometry: {upright: `Full`}}),
+    ).toMatchSnapshot();
+
+    expect(
+      generatePreset(`Test`, {geometry: {upright: `Level`}}),
+    ).toMatchSnapshot();
+
+    expect(
+      generatePreset(`Test`, {geometry: {upright: `Vertical`}}),
+    ).toMatchSnapshot();
   });
 
   test(`invalid settings`, async () => {

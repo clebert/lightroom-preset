@@ -29,8 +29,7 @@
   },
   "editor.formatOnSave": true,
   "editor.rulers": [
-    80,
-    120
+    80
   ],
   "files.exclude": {
     ".editorconfig": true,

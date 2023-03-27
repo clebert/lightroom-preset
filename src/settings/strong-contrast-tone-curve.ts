@@ -1,4 +1,7 @@
-import type {LinearToneCurvePoints, StrongContrastToneCurve} from '../schema.js';
+import type {
+  LinearToneCurvePoints,
+  StrongContrastToneCurve,
+} from '../schema.js';
 
 const linearPoints: LinearToneCurvePoints = [
   [0, 0],

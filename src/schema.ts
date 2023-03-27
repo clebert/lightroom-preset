@@ -118,7 +118,15 @@ export const schema = {
     parametricCurve: {
       type: `object`,
       additionalProperties: false,
-      required: [`shadows`, `darks`, `lights`, `highlights`, `shadowsSplit`, `midtonesSplit`, `highlightsSplit`],
+      required: [
+        `shadows`,
+        `darks`,
+        `lights`,
+        `highlights`,
+        `shadowsSplit`,
+        `midtonesSplit`,
+        `highlightsSplit`,
+      ],
       properties: {
         shadows: {type: `integer`, minimum: -100, maximum: 100},
         darks: {type: `integer`, minimum: -100, maximum: 100},
@@ -134,7 +142,10 @@ export const schema = {
       additionalProperties: false,
       properties: {
         whiteBalance: {
-          oneOf: [{$ref: `#/$defs/predefinedWhiteBalance`}, {$ref: `#/$defs/customWhiteBalance`}],
+          oneOf: [
+            {$ref: `#/$defs/predefinedWhiteBalance`},
+            {$ref: `#/$defs/customWhiteBalance`},
+          ],
         },
         vibrance: {type: `integer`, minimum: -100, maximum: 100},
         saturation: {type: `integer`, minimum: -100, maximum: 100},
@@ -148,7 +159,16 @@ export const schema = {
       required: [`name`],
       properties: {
         name: {
-          enum: [`As Shot`, `Auto`, `Daylight`, `Cloudy`, `Shade`, `Tungsten`, `Fluorescent`, `Flash`],
+          enum: [
+            `As Shot`,
+            `Auto`,
+            `Daylight`,
+            `Cloudy`,
+            `Shade`,
+            `Tungsten`,
+            `Fluorescent`,
+            `Flash`,
+          ],
         },
       },
     },
@@ -165,7 +185,16 @@ export const schema = {
     colorMix: {
       type: `object`,
       additionalProperties: false,
-      required: [`red`, `orange`, `yellow`, `green`, `aqua`, `blue`, `purple`, `magenta`],
+      required: [
+        `red`,
+        `orange`,
+        `yellow`,
+        `green`,
+        `aqua`,
+        `blue`,
+        `purple`,
+        `magenta`,
+      ],
       properties: {
         red: {$ref: `#/$defs/colorMixAdjustments`},
         orange: {$ref: `#/$defs/colorMixAdjustments`},
@@ -190,7 +219,14 @@ export const schema = {
     colorGrading: {
       type: `object`,
       additionalProperties: false,
-      required: [`shadows`, `midtones`, `highlights`, `global`, `blending`, `balance`],
+      required: [
+        `shadows`,
+        `midtones`,
+        `highlights`,
+        `global`,
+        `blending`,
+        `balance`,
+      ],
       properties: {
         shadows: {$ref: `#/$defs/colorGradingAdjustments`},
         midtones: {$ref: `#/$defs/colorGradingAdjustments`},
@@ -322,7 +358,16 @@ export const schema = {
     manualTransforms: {
       type: `object`,
       additionalProperties: false,
-      required: [`distortion`, `vertical`, `horizontal`, `rotate`, `aspect`, `scale`, `xOffset`, `yOffset`],
+      required: [
+        `distortion`,
+        `vertical`,
+        `horizontal`,
+        `rotate`,
+        `aspect`,
+        `scale`,
+        `xOffset`,
+        `yOffset`,
+      ],
       properties: {
         distortion: {type: `integer`, minimum: -100, maximum: 100},
         vertical: {type: `integer`, minimum: -100, maximum: 100},
@@ -343,7 +388,11 @@ export type LinearToneCurvePoints = [[0, 0], [255, 255]];
 /**
  * @minItems 2
  */
-export type CustomToneCurvePoints = [[number, number], [number, number], ...[number, number][]];
+export type CustomToneCurvePoints = [
+  [number, number],
+  [number, number],
+  ...[number, number][],
+];
 
 export interface CameraRawSettings {
   autoTone?: boolean;
@@ -362,7 +411,11 @@ export interface Light {
   shadows?: number;
   whites?: number;
   blacks?: number;
-  toneCurve?: LinearToneCurve | MediumContrastToneCurve | StrongContrastToneCurve | CustomToneCurve;
+  toneCurve?:
+    | LinearToneCurve
+    | MediumContrastToneCurve
+    | StrongContrastToneCurve
+    | CustomToneCurve;
   parametricCurve?: ParametricCurve;
 }
 export interface LinearToneCurve {
@@ -410,7 +463,15 @@ export interface Color {
   colorGrading?: ColorGrading;
 }
 export interface PredefinedWhiteBalance {
-  name: 'As Shot' | 'Auto' | 'Daylight' | 'Cloudy' | 'Shade' | 'Tungsten' | 'Fluorescent' | 'Flash';
+  name:
+    | 'As Shot'
+    | 'Auto'
+    | 'Daylight'
+    | 'Cloudy'
+    | 'Shade'
+    | 'Tungsten'
+    | 'Fluorescent'
+    | 'Flash';
 }
 export interface CustomWhiteBalance {
   name: 'Custom';
